@@ -1,0 +1,120 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="card-title mb-0">Add New Program</h2>
+        <button class="btn btn-outline-secondary" [routerLink]="['/']">
+          <i class="bi bi-arrow-left me-2"></i>Back to List
+        </button>
+      </div>
+
+      <form (ngSubmit)="submitForm()" #programForm="ngForm" class="row g-3">
+        <div class="col-md-6">
+          <label for="name" class="form-label">Program Name *</label>
+          <input 
+            type="text" 
+            id="name" 
+            class="form-control" 
+            [(ngModel)]="program.name" 
+            name="name" 
+            #name="ngModel"
+            required>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger small mt-1">
+            Program name is required
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label for="date" class="form-label">Date *</label>
+          <input 
+            type="date" 
+            id="date" 
+            class="form-control" 
+            [(ngModel)]="program.date" 
+            name="date"
+            #date="ngModel" 
+            required>
+          <div *ngIf="date.invalid && (date.dirty || date.touched)" class="text-danger small mt-1">
+            Date is required
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label for="hours" class="form-label">Hours *</label>
+          <input 
+            type="number" 
+            id="hours" 
+            class="form-control" 
+            [(ngModel)]="program.hours" 
+            name="hours"
+            #hours="ngModel" 
+            required
+            min="0">
+          <div *ngIf="hours.invalid && (hours.dirty || hours.touched)" class="text-danger small mt-1">
+            Valid hours are required
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="description" class="form-label">Description *</label>
+          <textarea 
+            id="description" 
+            class="form-control" 
+            [(ngModel)]="program.description" 
+            name="description"
+            #description="ngModel" 
+            required
+            rows="4"></textarea>
+          <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger small mt-1">
+            Description is required
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="photos" class="form-label d-flex justify-content-between">
+            <span>Photos</span>
+            <small class="text-muted">{{program.photos.length}}/{{MAX_IMAGES}} images</small>
+          </label>
+          <input 
+            type="file" 
+            id="photos" 
+            class="form-control" 
+            (change)="onFileChange($event)" 
+            accept="image/*"
+            multiple
+            #fileInput
+            [attr.disabled]="program.photos.length >= MAX_IMAGES ? '' : null">
+          <small class="text-muted d-block mt-1">Maximum {{MAX_IMAGES}} images allowed</small>
+        </div>
+
+        <div class="col-12">
+          <div class="d-flex flex-wrap gap-3 mt-2">
+            <div *ngFor="let preview of imagePreviewUrls; let i = index" 
+                 class="position-relative preview-image">
+              <img [src]="preview" class="rounded shadow-sm" alt="Preview">
+              <button type="button" class="btn-close preview-remove" 
+                      (click)="removeImage(i)"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mt-4">
+          <div class="d-flex gap-2">
+            <button type="submit" 
+                    class="btn btn-primary px-4" 
+                    [disabled]="programForm.invalid || isSubmitting">
+              <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+              {{ isSubmitting ? 'Adding...' : 'Add Program' }}
+            </button>
+            <button type="button" 
+                    class="btn btn-outline-secondary" 
+                    [routerLink]="['/']" 
+                    [disabled]="isSubmitting">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

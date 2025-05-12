@@ -1,0 +1,40 @@
+.preview-image {
+  width: 150px;
+  height: 150px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+}
+
+.preview-remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+}
+
+.form-control, .btn {
+  border-radius: 0.25rem;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #86b7fe;
+}
+
+.card {
+  border: none;
+  border-radius: 0.5rem;
+}
