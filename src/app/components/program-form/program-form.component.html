@@ -1,96 +1,106 @@
-<div class="container mt-4">
-  <div class="card shadow-sm">
+<div class="container-fluid container-lg mt-4">
+  <div class="card">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="card-title mb-0">Add New Program</h2>
+        <h2 class="card-title h3 mb-0">Add New Program</h2>
         <button class="btn btn-outline-secondary" [routerLink]="['/']">
           <i class="bi bi-arrow-left me-2"></i>Back to List
         </button>
       </div>
 
-      <form (ngSubmit)="submitForm()" #programForm="ngForm" class="row g-3">
-        <div class="col-md-6">
-          <label for="name" class="form-label">Program Name *</label>
-          <input 
-            type="text" 
-            id="name" 
-            class="form-control" 
-            [(ngModel)]="program.name" 
-            name="name" 
-            #name="ngModel"
-            required>
-          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger small mt-1">
-            Program name is required
+      <form (ngSubmit)="submitForm()" #programForm="ngForm" class="row">
+        <div class="col-12 col-lg-6">
+          <div class="form-group">
+            <label for="name" class="form-label">Program Name *</label>
+            <input 
+              type="text" 
+              id="name" 
+              class="form-control" 
+              [(ngModel)]="program.name" 
+              name="name" 
+              #name="ngModel"
+              required>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+              Program name is required
+            </div>
           </div>
         </div>
 
-        <div class="col-md-3">
-          <label for="date" class="form-label">Date *</label>
-          <input 
-            type="date" 
-            id="date" 
-            class="form-control" 
-            [(ngModel)]="program.date" 
-            name="date"
-            #date="ngModel" 
-            required>
-          <div *ngIf="date.invalid && (date.dirty || date.touched)" class="text-danger small mt-1">
-            Date is required
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="form-group">
+            <label for="date" class="form-label">Date *</label>
+            <input 
+              type="date" 
+              id="date" 
+              class="form-control" 
+              [(ngModel)]="program.date" 
+              name="date"
+              #date="ngModel" 
+              required>
+            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="text-danger">
+              Date is required
+            </div>
           </div>
         </div>
 
-        <div class="col-md-3">
-          <label for="hours" class="form-label">Hours *</label>
-          <input 
-            type="number" 
-            id="hours" 
-            class="form-control" 
-            [(ngModel)]="program.hours" 
-            name="hours"
-            #hours="ngModel" 
-            required
-            min="0">
-          <div *ngIf="hours.invalid && (hours.dirty || hours.touched)" class="text-danger small mt-1">
-            Valid hours are required
-          </div>
-        </div>
-
-        <div class="col-12">
-          <label for="description" class="form-label">Description *</label>
-          <textarea 
-            id="description" 
-            class="form-control" 
-            [(ngModel)]="program.description" 
-            name="description"
-            #description="ngModel" 
-            required
-            rows="4"></textarea>
-          <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger small mt-1">
-            Description is required
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="form-group">
+            <label for="hours" class="form-label">Hours *</label>
+            <input 
+              type="number" 
+              id="hours" 
+              class="form-control" 
+              [(ngModel)]="program.hours" 
+              name="hours"
+              #hours="ngModel" 
+              required
+              min="0">
+            <div *ngIf="hours.invalid && (hours.dirty || hours.touched)" class="text-danger">
+              Valid hours are required
+            </div>
           </div>
         </div>
 
         <div class="col-12">
-          <label for="photos" class="form-label d-flex justify-content-between">
-            <span>Photos</span>
-            <small class="text-muted">{{program.photos.length}}/{{MAX_IMAGES}} images</small>
-          </label>
-          <input 
-            type="file" 
-            id="photos" 
-            class="form-control" 
-            (change)="onFileChange($event)" 
-            accept="image/*"
-            multiple
-            #fileInput
-            [attr.disabled]="program.photos.length >= MAX_IMAGES ? '' : null">
-          <small class="text-muted d-block mt-1">Maximum {{MAX_IMAGES}} images allowed</small>
+          <div class="form-group">
+            <label for="description" class="form-label">Description *</label>
+            <textarea 
+              id="description" 
+              class="form-control" 
+              [(ngModel)]="program.description" 
+              name="description"
+              #description="ngModel" 
+              required
+              rows="4"></textarea>
+            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+              Description is required
+            </div>
+          </div>
         </div>
 
         <div class="col-12">
-          <div class="d-flex flex-wrap gap-3 mt-2">
+          <div class="form-group">
+            <label for="photos" class="form-label d-flex justify-content-between align-items-center">
+              <span>Photos</span>
+              <small class="text-muted">{{program.photos.length}}/{{MAX_IMAGES}} images</small>
+            </label>
+            <input 
+              type="file" 
+              id="photos" 
+              class="form-control" 
+              (change)="onFileChange($event)" 
+              accept="image/*"
+              multiple
+              #fileInput
+              [attr.disabled]="program.photos.length >= MAX_IMAGES ? '' : null">
+            <small class="text-muted d-block mt-1">Maximum {{MAX_IMAGES}} images allowed</small>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="d-flex flex-wrap gap-3">
             <div *ngFor="let preview of imagePreviewUrls; let i = index" 
-                 class="position-relative preview-image">
+                class="preview-image">
               <img [src]="preview" class="rounded shadow-sm" alt="Preview">
               <button type="button" class="btn-close preview-remove" 
                       (click)="removeImage(i)"></button>
@@ -98,10 +108,10 @@
           </div>
         </div>
 
-        <div class="col-12 mt-4">
-          <div class="d-flex gap-2">
+        <div class="col-12">
+          <div class="button-group">
             <button type="submit" 
-                    class="btn btn-primary px-4" 
+                    class="btn btn-primary" 
                     [disabled]="programForm.invalid || isSubmitting">
               <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
               {{ isSubmitting ? 'Adding...' : 'Add Program' }}

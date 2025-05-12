@@ -1,17 +1,30 @@
 .list-group-item {
-    margin-bottom: 20px;
-    padding: 15px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  
+  @media (min-width: 768px) {
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+  }
+}
+
+.img-thumbnail {
+  width: 80px;
+  height: 80px;
+  margin: 0.25rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  transition: transform 0.2s;
+  
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 100px;
   }
   
-  .img-thumbnail {
-    margin-top: 10px;
-    border-radius: 0.5rem;
-    transition: transform 0.2s;
-    
-    &:hover {
-      transform: scale(1.05);
-    }
+  &:hover {
+    transform: scale(1.05);
   }
+}
 
 .spinner-border {
   width: 1rem;
@@ -19,27 +32,50 @@
   border-width: 0.15em;
   
   &.text-primary {
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
+    
+    @media (min-width: 768px) {
+      width: 3rem;
+      height: 3rem;
+    }
   }
 }
 
-button:disabled {
-  cursor: not-allowed;
+button {
+  &:disabled {
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 575.98px) {
+    &.btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
 }
 
 .hover-card {
   transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 1rem;
   
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  @media (min-width: 768px) {
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
   }
 }
 
 .card {
   border: none;
   border-radius: 0.5rem;
+  transition: transform 0.2s ease-in-out;
+  height: 100%;
+  
+  &.hover-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .btn {
@@ -86,5 +122,103 @@ button:disabled {
         border-color: #ced4da;
       }
     }
+  }
+}
+
+// Responsive filters section
+.filters-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  
+  .filter-item {
+    flex: 1;
+    min-width: 250px;
+    
+    .input-group {
+      .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+      }
+      
+      .form-control {
+        border-left: none;
+        &:focus {
+          border-color: #ced4da;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+// Action buttons container
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+  
+  @media (min-width: 576px) {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  
+  .btn {
+    width: 100%;
+    min-width: 120px;
+    
+    @media (min-width: 576px) {
+      width: auto;
+    }
+  }
+}
+
+// Program card styles
+.card-body {
+  padding: 1.25rem;
+  
+  .card-title {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-right: 1rem;
+  }
+  
+  .btn-outline-danger {
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+  }
+}
+
+// Empty state styles
+.text-center.py-5 {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 3rem !important;
+  
+  .text-muted {
+    font-size: 1.1rem;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .action-buttons {
+    width: 100%;
+    
+    .btn {
+      flex: 1;
+    }
+  }
+  
+  .filters-section {
+    margin-top: 1rem;
   }
 }

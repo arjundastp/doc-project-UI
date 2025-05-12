@@ -14,7 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProgramListComponent implements OnInit {
   programs: any[] = [];
-  nameFilter: string = '';
+  filteredPrograms: any[] = [];
+  searchTerm: string = '';
   dateFilter: string = '';
   isExporting: boolean = false;
   isLoading: boolean = false;
@@ -31,9 +32,10 @@ export class ProgramListComponent implements OnInit {
 
   loadPrograms(): void {
     this.isLoading = true;
-    this.programService.getPrograms(this.nameFilter, this.dateFilter).subscribe({
+    this.programService.getPrograms(this.searchTerm, this.dateFilter).subscribe({
       next: (data: any) => {
         this.programs = data;
+        this.filterPrograms();
         this.isLoading = false;
       },
       error: (error) => {
@@ -41,6 +43,19 @@ export class ProgramListComponent implements OnInit {
         this.toastr.error('Error loading programs');
         this.isLoading = false;
       }
+    });
+  }
+
+  filterPrograms(): void {
+    this.filteredPrograms = this.programs.filter(program => {
+      const matchesSearch = !this.searchTerm || 
+        program.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        program.description.toLowerCase().includes(this.searchTerm.toLowerCase());
+      
+      const matchesDate = !this.dateFilter || 
+        new Date(program.date).toISOString().split('T')[0] === this.dateFilter;
+
+      return matchesSearch && matchesDate;
     });
   }
 
